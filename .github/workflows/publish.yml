@@ -31,8 +31,10 @@ jobs:
           url: ${{  secrets.API_PING  }}
 
       - name: Check API Response
-        if: contains(${{ steps.pingRequest.outputs.response  }}, "online") == false
-        run: exit 1
+        run: |
+          if [[ contains(${{ steps.pingRequest.outputs.response  }}, "online")  == false ]]; then
+            exit 1
+          fi
 
       - name: Make API Request
         uses: fjogeleit/http-request-action@master
