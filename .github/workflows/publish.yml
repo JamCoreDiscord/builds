@@ -14,10 +14,10 @@ jobs:
         run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo "latest_build_name=${changed_file}" >> $GITHUB_ENV
-            echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/Pinguino/${changed_file}" >> $GITHUB_ENV
+            echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/${changed_file}" >> $GITHUB_ENV
           done
       - name: Check for Pinguino Updates
-        if: "!contains(${{  env.latest_build_name  }}, 'Pinguino')"
+        if: false == contains(${{  env.latest_build_name  }}, "Pinguino")
         run: exit 0
       - name: Ping API
         id: pingRequest
