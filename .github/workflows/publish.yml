@@ -23,16 +23,7 @@ jobs:
             echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/${changed_file}" >> $GITHUB_ENV
           done
 
-      - name: Check for Pinguino Updates (True)
-        if: contains(${{  env.latest_build_name  }}, "Pinguino")
-        run: echo "pinguino_update=true" >> $GITHUB_ENV
-
-      - name: Check for Pinguino Updates (False)
-        if: contains(${{  env.latest_build_name  }}, "Pinguino") == false
-        run: echo "pinguino_update=false" >> %GITHUB_ENV
-
       - name: Ping API
-        if: ${{ env.pinguino_update }}
         id: pingRequest
         uses: fjogeleit/http-request-action@master
         with:
@@ -40,11 +31,10 @@ jobs:
           url: ${{  secrets.API_PING  }}
 
       - name: Check API Response
-        if: ${{ env.pinguino_update }} && contains(${{ steps.pingRequest.outputs.response  }}, "online")
+        if: contains(${{ steps.pingRequest.outputs.response  }}, "online") == false
         run: exit 1
 
       - name: Make API Request
-        if: ${{ env.pinguino_update }}
         uses: fjogeleit/http-request-action@master
         with:
           method: POST
