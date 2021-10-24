@@ -1,0 +1,20 @@
+name: Pinguino Publish
+
+on: push
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Ping API
+        id: pingRequest
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: "https://xkcd.com/info.0.json"
+      - name: Check API Response
+        #if: ${{ steps.pingRequest.outputs.response  }} != 
+        #run: exit 1
+        run: echo ${{ steps.pingRequest.outputs.response  }}
+      - name: Get Added File
+        uses: jitterbit/get-changed-files@v1
