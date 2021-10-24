@@ -32,7 +32,7 @@ jobs:
 
       - name: Check API Response
         run: |
-          if [[ ${{ steps.pingRequest.outputs.response  }} != *"online"*  ]]; then
+          if [[ ${{ steps.pingRequest.outputs.response  }} != *"success"*  ]]; then
             exit 1
           fi
 
