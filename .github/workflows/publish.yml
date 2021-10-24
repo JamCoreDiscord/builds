@@ -1,34 +1,50 @@
 name: Pinguino Publish
 
 on: push
+
 jobs:
   publish:
+
     runs-on: ubuntu-20.04
+
     steps:
+
       - name: Checkout Repository
         uses: actions/checkout@v2
+
       - name: Get Added Files
         id: files
         uses: jitterbit/get-changed-files@v1
+
       - name: Add Files to ENV Variable
         run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo "latest_build_name=${changed_file}" >> $GITHUB_ENV
             echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/${changed_file}" >> $GITHUB_ENV
           done
-      - name: Check for Pinguino Updates
+
+      - name: Check for Pinguino Updates (True)
+        if: contains(${{  env.latest_build_name  }}, "Pinguino")
+        run: echo "pinguino_update=true" >> $GITHUB_ENV
+
+      - name: Check for Pinguino Updates (False)
         if: false == contains(${{  env.latest_build_name  }}, "Pinguino")
-        uses: andymckay/cancel-action@0.2
+        run: echo "pinguino_update=false" >> %GITHUB_ENV
+
       - name: Ping API
+        if: ${{ env.pinguino_update }}
         id: pingRequest
         uses: fjogeleit/http-request-action@master
         with:
           method: GET
           url: ${{  secrets.API_PING  }}
+
       - name: Check API Response
-        if: contains(${{ steps.pingRequest.outputs.response  }}, "online")
+        if: ${{ env.pinguino_update }} && contains(${{ steps.pingRequest.outputs.response  }}, "online")
         run: exit 1
+
       - name: Make API Request
+        if: ${{ env.pinguino_update }}
         uses: fjogeleit/http-request-action@master
         with:
           method: POST
