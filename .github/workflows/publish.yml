@@ -11,6 +11,7 @@ jobs:
         id: pingRequest
         uses: fjogeleit/http-request-action@master
         with:
+          method: GET
           url: "https://dog.ceo/api/breeds/image/random"
       - name: Check API Response
         #if: ${{ steps.pingRequest.outputs.response  }} != 
