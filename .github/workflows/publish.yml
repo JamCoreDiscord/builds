@@ -24,11 +24,11 @@ jobs:
           done
 
       - name: Check for Pinguino Updates (True)
-        run: echo "pinguino_update=true" >> $GITHUB_ENV
         if: contains(${{  env.latest_build_name  }}, "Pinguino")
+        run: echo "pinguino_update=true" >> $GITHUB_ENV
 
       - name: Check for Pinguino Updates (False)
-        if: false == contains(${{  env.latest_build_name  }}, "Pinguino")
+        if: contains(${{  env.latest_build_name  }}, "Pinguino") == false
         run: echo "pinguino_update=false" >> %GITHUB_ENV
 
       - name: Ping API
