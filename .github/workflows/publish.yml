@@ -18,7 +18,7 @@ jobs:
           done
       - name: Check for Pinguino Updates
         if: false == contains(${{  env.latest_build_name  }}, "Pinguino")
-        run: exit 0
+        uses: andymckay/cancel-action@0.2
       - name: Ping API
         id: pingRequest
         uses: fjogeleit/http-request-action@master
