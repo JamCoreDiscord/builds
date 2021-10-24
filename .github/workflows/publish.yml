@@ -14,7 +14,7 @@ jobs:
           method: GET
           url: "https://dog.ceo/api/breeds/image/random"
       - name: Check API Response
-        if: contains(${{ steps.pingRequest.outputs.response  }}, "success")
+        if: ! contains(${{ steps.pingRequest.outputs.response  }}, "success")
         run: exit 1
       - name: Get Added File
         uses: jitterbit/get-changed-files@v1
