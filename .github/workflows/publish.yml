@@ -24,8 +24,8 @@ jobs:
           done
 
       - name: Check for Pinguino Updates (True)
-        if: contains(${{  env.latest_build_name  }}, "Pinguino")
         run: echo "pinguino_update=true" >> $GITHUB_ENV
+        if: contains(${{  env.latest_build_name  }}, "Pinguino")
 
       - name: Check for Pinguino Updates (False)
         if: false == contains(${{  env.latest_build_name  }}, "Pinguino")
