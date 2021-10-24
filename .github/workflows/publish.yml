@@ -7,8 +7,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Get Added File
+      - name: Get Added Files
+        id: files
         uses: jitterbit/get-changed-files@v1
+      - name: Add Files to ENV Variable
         run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/Pinguino/${changed_file}" >> $GITHUB_ENV
