@@ -35,12 +35,24 @@ jobs:
       #      exit 1
       #    fi
 
+      #- name: Make API Request
+      #  id: request
+      #  uses: fjogeleit/http-request-action@master
+      #  with:
+      #    method: POST
+      #    url: ${{  secrets.API_UPLOAD  }}
+      #    data: "{\"build_url\": \"${{  env.latest_build_url  }}\"}"            
+      #- name: Show Response
+      #  run: echo ${{ steps.request.outputs.response }}
+
       - name: Make API Request
         id: request
-        uses: fjogeleit/http-request-action@master
+        uses: satak/webrequest-action@master
         with:
           method: POST
           url: ${{  secrets.API_UPLOAD  }}
-          data: "{\"build_url\": \"${{  env.latest_build_url  }}\"}"            
-      - name: Show Response
-        run: echo ${{ steps.request.outputs.response }}
+          payload: '{"build_url": ${{ env.latest_build_url  }}}'
+      - name: Show API Response
+        run: |
+          $output = '${{ steps.request.outputs.output }}' | ConvertFrom-Json
+          Write-Host "Status Code: $($output.statusCode)"
