@@ -22,6 +22,10 @@ jobs:
             echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/${changed_file}" >> $GITHUB_ENV
           done
 
+      - name: Check Internet Connectivity
+        run: |
+          ping https://www.google.com/
+
       - name: Ping API
         id: pingRequest
         uses: fjogeleit/http-request-action@master
