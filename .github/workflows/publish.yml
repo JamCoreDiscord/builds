@@ -22,28 +22,6 @@ jobs:
             echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/${changed_file}" >> $GITHUB_ENV
           done
 
-      #- name: Ping API
-      #  id: pingRequest
-      #  uses: fjogeleit/http-request-action@master
-      #  with:
-      #    method: GET
-      #    url: ${{  secrets.API_PING  }}
-
-      #- name: Check API Response
-      #  run: |
-      #    if [[ ${{ steps.pingRequest.outputs.response  }} != *"success"*  ]]; then
-      #      exit 1
-      #    fi
-
-      #- name: Make API Request
-      #  id: request
-      #  uses: fjogeleit/http-request-action@master
-      #  with:
-      #    method: POST
-      #    url: ${{  secrets.API_UPLOAD  }}
-      #    data: "{\"build_url\": \"${{  env.latest_build_url  }}\"}"            
-      #- name: Show Response
-      #  run: echo ${{ steps.request.outputs.response }}
       - name: Make API Request
         run: |
           curl -X POST -H "Content-Type: application/json" -d '{"build_url": "${{  env.latest_build_url  }}"}' ${{  secrets.API_UPLOAD  }}
