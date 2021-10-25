@@ -58,7 +58,7 @@ jobs:
       #    Write-Host "Status Code: $($output.statusCode)"
 
       - name: Make API Request
-        uses: distributhor/workflow-webhook
-        with:
-          url: ${{  secrets.API_UPLOAD  }}
-          json: '{"build_url": "${{ env.latest_build_url  }}"}'
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{  secrets.API_UPLOAD  }}
+          data: '{"build_url": "${{ env.latest_build_url  }}"}'
