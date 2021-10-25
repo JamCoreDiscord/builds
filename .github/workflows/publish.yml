@@ -50,7 +50,7 @@ jobs:
         uses: satak/webrequest-action@master
         with:
           method: POST
-          url: ${{  secrets.API_UPLOAD  }}
+          url: "138.68.171.167:3000/notify"
           payload: '{"build_url": "${{ env.latest_build_url  }}"}'
       #- name: Show API Response
       #  run: |
