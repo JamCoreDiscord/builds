@@ -18,7 +18,7 @@ jobs:
 
       - name: Add Files to ENV Variable
         run: |
-          for changed_file in ${{ steps.files.outputs.all }}; do
+          for changed_file in ${{ steps.files.outputs.added }}; do
             echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/${changed_file}" >> $GITHUB_ENV
           done
 
