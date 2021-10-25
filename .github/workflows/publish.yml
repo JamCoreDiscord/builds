@@ -51,7 +51,7 @@ jobs:
         with:
           method: POST
           url: ${{  secrets.API_UPLOAD  }}
-          payload: '{"build_url": ${{ env.latest_build_url  }}}'
+          payload: '{"build_url": "${{ env.latest_build_url  }}""}'
       - name: Show API Response
         run: |
           $output = '${{ steps.request.outputs.output }}' | ConvertFrom-Json
