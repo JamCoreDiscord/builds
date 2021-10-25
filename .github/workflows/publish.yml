@@ -45,20 +45,14 @@ jobs:
       #- name: Show Response
       #  run: echo ${{ steps.request.outputs.response }}
 
-      #- name: Make API Request
-      #  id: request
-      #  uses: satak/webrequest-action@master
-      #  with:
-      #    method: POST
-      #    url: ${{  secrets.API_UPLOAD  }}
-      #    payload: '{"build_url": "${{ env.latest_build_url  }}"}'
+      - name: Make API Request
+        id: request
+        uses: satak/webrequest-action@master
+        with:
+          method: POST
+          url: ${{  secrets.API_UPLOAD  }}
+          payload: '{"build_url": "${{ env.latest_build_url  }}"}'
       #- name: Show API Response
       #  run: |
       #    $output = '${{ steps.request.outputs.output }}' | ConvertFrom-Json
       #    Write-Host "Status Code: $($output.statusCode)"
-
-      - name: Make API Request
-        uses: distributhor/workflow-webhook@v2
-        env:
-          webhook_url: ${{  secrets.API_UPLOAD  }}
-          data: '{"build_url": "${{ env.latest_build_url  }}"}'
