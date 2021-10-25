@@ -40,4 +40,4 @@ jobs:
         with:
           method: POST
           url: ${{  secrets.API_UPLOAD  }}
-          data: "{\"build_url\": ${{  env.latest_build_url  }}}"            
+          data: "{\"build_url\": \"${{  env.latest_build_url  }}\"}"            
