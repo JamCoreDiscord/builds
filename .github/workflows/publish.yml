@@ -24,7 +24,7 @@ jobs:
 
       - name: Check Internet Connectivity
         run: |
-          ping https://www.google.com/
+          ping www.google.com
 
       - name: Ping API
         id: pingRequest
