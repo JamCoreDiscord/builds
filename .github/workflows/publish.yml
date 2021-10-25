@@ -22,22 +22,18 @@ jobs:
             echo "latest_build_url=https://github.com/JamCoreDiscord/builds/tree/main/${changed_file}" >> $GITHUB_ENV
           done
 
-      - name: Check Internet Connectivity
-        run: |
-          ping www.google.com
+      #- name: Ping API
+      #  id: pingRequest
+      #  uses: fjogeleit/http-request-action@master
+      #  with:
+      #    method: GET
+      #    url: ${{  secrets.API_PING  }}
 
-      - name: Ping API
-        id: pingRequest
-        uses: fjogeleit/http-request-action@master
-        with:
-          method: GET
-          url: ${{  secrets.API_PING  }}
-
-      - name: Check API Response
-        run: |
-          if [[ ${{ steps.pingRequest.outputs.response  }} != *"success"*  ]]; then
-            exit 1
-          fi
+      #- name: Check API Response
+      #  run: |
+      #    if [[ ${{ steps.pingRequest.outputs.response  }} != *"success"*  ]]; then
+      #      exit 1
+      #    fi
 
       - name: Make API Request
         uses: fjogeleit/http-request-action@master
